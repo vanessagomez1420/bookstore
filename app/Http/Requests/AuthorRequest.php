@@ -29,7 +29,7 @@ class AuthorRequest extends FormRequest
             'citizenship' => 'required|string|max:100',
             'date_of_birth' => 'required|date',
             'bio' => 'required|string|max:191',
-            'image'=>'mimes:jpg,jpeg,png,bmp|max:2048'
+            'image' => 'mimes:jpg,jpeg,png,bmp|max:2048'
         ];
     }
 }

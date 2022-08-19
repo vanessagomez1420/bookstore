@@ -22,7 +22,7 @@ Route::get('/', function () {
 });
 
 Route::get('authors', [AuthorController::class, 'index'])->name('author.index');
-Route::prefix('author')->group(function () {
+Route::group(['prefix' => 'author'], function () {
     Route::get('new', [AuthorController::class, 'create'])->name('author.create');
     Route::post('store', [AuthorController::class, 'store'])->name('author.store');
     Route::get('edit/{author}', [AuthorController::class, 'edit'])->name('author.edit');
@@ -31,7 +31,7 @@ Route::prefix('author')->group(function () {
 });
 
 Route::get('publishers', [PublisherController::class, 'index'])->name('publisher.index');
-Route::prefix('publisher')->group(function () {
+Route::group(['prefix' => 'publisher'], function () {
     Route::get('new', [PublisherController::class, 'create'])->name('publisher.new');
     Route::post('store', [PublisherController::class, 'store'])->name('publisher.store');
     Route::get('edit/{publisher}', [PublisherController::class, 'edit'])->name('publisher.edit');
@@ -40,7 +40,7 @@ Route::prefix('publisher')->group(function () {
 });
 
 Route::get('genres', [GenreController::class, 'index'])->name('genre.index');
-Route::prefix('genre')->group(function () {
+Route::group(['prefix' => 'genre'], function () {
     Route::get('new', [GenreController::class, 'create'])->name('genre.new');
     Route::post('store', [GenreController::class, 'store'])->name('genre.store');
     Route::get('edit/{genre}', [GenreController::class, 'edit'])->name('genre.edit');
@@ -49,7 +49,7 @@ Route::prefix('genre')->group(function () {
 });
 
 Route::get('books', [BookController::class, 'index'])->name('book.index');
-Route::prefix('book')->group(function () {
+Route::group(['prefix' => 'book'], function () {
     Route::get('new', [BookController::class, 'create'])->name('book.new');
     Route::post('store', [BookController::class, 'store'])->name('book.store');
     Route::get('edit/{book}', [BookController::class, 'edit'])->name('book.edit');

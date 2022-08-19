@@ -5,7 +5,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            @if (Session::has('response'))
+            @if (\Session::has('response'))
                 <div class="row justify-content-center">
                     <div class="col-md-6">
                         <div class="alert alert-success text-center">
