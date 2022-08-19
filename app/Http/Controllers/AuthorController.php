@@ -34,7 +34,7 @@ class AuthorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(AuthorRequest $request)
@@ -53,7 +53,7 @@ class AuthorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Author  $author
+     * @param \App\Models\Author $author
      * @return \Illuminate\Http\Response
      */
     public function show(Author $author)
@@ -64,7 +64,7 @@ class AuthorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Author  $author
+     * @param \App\Models\Author $author
      * @return \Illuminate\Http\Response
      */
     public function edit(Author $author)
@@ -76,8 +76,8 @@ class AuthorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Author  $author
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Author $author
      * @return \Illuminate\Http\Response
      */
     public function update(AuthorRequest $request, Author $author)
@@ -95,7 +95,7 @@ class AuthorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Author  $author
+     * @param \App\Models\Author $author
      * @return \Illuminate\Http\Response
      */
     public function destroy(Author $author)

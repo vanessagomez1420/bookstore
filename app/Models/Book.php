@@ -14,7 +14,7 @@ class Book extends Model
         'isbn',
         'pages',
         'format',
-        'sypnosis',
+        'synopsis',
         'language',
         'publication_date',
         'price',

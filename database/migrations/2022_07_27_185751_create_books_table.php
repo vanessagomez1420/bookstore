@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -17,10 +16,10 @@ return new class extends Migration
             $table->id();
 
             $table->text('title');
-            $table->text('isbn')->unique();
+            $table->string('isbn')->unique();
             $table->integer('pages');
             $table->text('format');
-            $table->text('sypnosis');
+            $table->text('synopsis');
             $table->text('language');
             $table->date('publication_date');
             $table->float('price');
