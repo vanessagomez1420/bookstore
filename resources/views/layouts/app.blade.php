@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title')</title>
+    <title>{{'title'}}</title>
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
 </head>
 
@@ -34,7 +34,7 @@
         </div>
     </nav>
     <div class="container-fluid mt-3">
-        @yield('content')
+        {{ $slot }}
     </div>
 </div>
 

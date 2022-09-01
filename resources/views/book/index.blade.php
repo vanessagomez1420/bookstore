@@ -1,8 +1,5 @@
-@extends('layouts.app')
-
-@section('title', 'Libros | Inicio')
-
-@section('content')
+<x-app-layout>
+ <x-slot name="title">books</x-slot>
     <div class="row">
         <div class="col-md-12">
             @if (Session::has('response'))
@@ -138,9 +135,9 @@
                 </div>
             </div>
         </div>
-    @endsection
+    </x-app-layout>
 
-    @section('scripts')
+    <x-app-layout>
         <script>
             function show_details(book) {
                 console.log(book);
@@ -198,4 +195,4 @@
 
 
 
-    @endsection
+</x-app-layout>

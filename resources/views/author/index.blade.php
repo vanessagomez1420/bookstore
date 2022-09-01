@@ -1,11 +1,11 @@
-@extends('layouts.app')
-
-@section('title', 'Autores | Inicio')
-
-@section('content')
+<x-app-layout>
+ <x-slot name="title">authors</x-slot>
     <div class="row">
         <div class="col-md-12">
-            @if (Session::has('response'))
+            <author-index :authors="{{$authors}}"></author-index>
+
+
+            {{-- @if (Session::has('response'))
                 <div class="row justify-content-center">
                     <div class="col-md-6">
                         <div class="alert alert-success text-center">
@@ -13,9 +13,9 @@
                         </div>
                     </div>
                 </div>
-            @endif
+            @endif --}}
 
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-header text-center">
                     <h3 class="card-title">Autores</h3>
                     <a class="btn btn-success" href="{{ route('author.create') }}"><i data-feather="plus-square"></i> Nuevo
@@ -62,7 +62,7 @@
                         </table>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
-@endsection
+</x-app-layout>

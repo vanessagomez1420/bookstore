@@ -1,8 +1,4 @@
-@extends('layouts.app')
-
-@section('title', "Editorial | $title")
-
-@section('content')
+</x-app-layout>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -64,4 +60,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-app-layout>

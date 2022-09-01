@@ -1,8 +1,5 @@
-@extends('layouts.app')
-
-@section('title', "Libros | $title")
-
-@section('content')
+<x-app-layout>
+  <x-slot name="title">new book</x-slot>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -145,7 +142,7 @@
             </div>
         </div>
     </div>
-@endsection
+</x-app-layout>
 
 @section('scripts')
     <script>
@@ -153,4 +150,4 @@
             $('.selecttwo').select2();
         });
     </script>
-@endsection
+</x-app-layout>

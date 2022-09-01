@@ -1,8 +1,5 @@
-@extends('layouts.app')
-
-@section('title', 'Generos | Inicio')
-
-@section('content')
+<x-app-layout>
+ <x-slot name="title">genres</x-slot>
     <div class="row">
         <div class="col-md-12">
             @if (Session::has('response'))
@@ -56,4 +53,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-app-layout>

@@ -12,7 +12,7 @@ class AuthorController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\view
      */
     public function index()
     {
@@ -45,7 +45,7 @@ class AuthorController extends Controller
             $request = $request->all();
             $request['image'] = $image_name;
         }
-        $author = new Author($request);
+        $author = new Author($request->validated());
         $author->save();
         return redirect()->route('author.index')->with('response', 'Autor creado con exito');
     }
