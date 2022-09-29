@@ -44,7 +44,7 @@
                 @endauth
 {{
                 {{-- <li class="nav_item">
-                    <a href="{{ route('login.host') }}">Inicia Sessión</a>
+                    <a href="{{ route('login') }}">Inicia Sessión</a>
                 </li>
 
                 @if (Route::has('register'))
