@@ -33,11 +33,11 @@
                                         <input type="text" name="title" id="title" class="form-control"
                                                placeholder="Ingrese el titulo" value="{{ isset($book) ? $book->title : '' }}" required>
                                     </div>
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="isbn">Isbn</label>
                                         <input type="text" name="isbn" id="isbn" class="form-control"
                                                placeholder="Ingrese el ISBN" value="{{ isset($book) ? $book->isbn : '' }}" required>
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group">
                                         <label for="pages">Numero de paginas</label>
                                         <input type="number" name="pages" id="pages" class="form-control"
@@ -49,11 +49,11 @@
                                         <input type="text" name="format" id="format" class="form-control"
                                                placeholder="formato del libro" value="{{ isset($book) ? $book->format : '' }}" required>
                                     </div>
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="sypnosis">Sipnosis</label>
                                         <textarea name="synopsis" id="synopsis" class="form-control" placeholder="agregue la description del libro"
                                                   required>{{ isset($book) ? $book->sypnosis : old('sypnosis') }}</textarea>
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group">
                                         <label for="language">Idioma</label>
                                         <input type="text" name="language" id="language" class="form-control"
@@ -71,7 +71,7 @@
                                                placeholder="agregue el precio del libro" value="{{ isset($book) ? $book->price : '' }}"
                                                required>
                                     </div>
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="publisher_id">Seleccione la editorial</label>
                                         <select class="form-control" name="publisher_id" id="publisher_id" required>
                                             <option value="" disabled selected>Seleccione una editorial...</option>
@@ -84,10 +84,10 @@
                                                 @endforeach
                                             @endif
                                         </select>
-                                    </div>
+                                    </div> --}}
 
 
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="authors">Seleccione los autores del libro</label>
                                         <select class="form-control selecttwo" id="authors" name="authors[]" multiple="multiple">
 
@@ -106,9 +106,9 @@
 
                                             @endif
                                         </select>
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="authors">Seleccione los generos del libro</label>
                                         <select class="form-control selecttwo" id="genres" name="genres[]" multiple="multiple">
 
@@ -132,22 +132,22 @@
                                         @error('image')
                                         <span class="text-danger">{{$message}}</span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                 </div>
-                <div class="card-footer text-center">
+                {{-- <div class="card-footer text-center">
                     <input class="btn btn-success" type="submit" value="Crear">
                     <a class="btn btn-link" href="{{ route('author.index') }}">Volver</a>
                     </form>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
 </x-app-layout>
 
-@section('scripts')
+{{-- @section('scripts')
     <script>
         $(document).ready(function () {
             $('.selecttwo').select2();
         });
-    </script>
-</x-app-layout>
+    </script> --}}
+{{-- </x-app-layout> --}}

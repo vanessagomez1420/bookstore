@@ -1,8 +1,17 @@
-<x-app-layout>
- <x-slot name="title">books</x-slot>
-    <div class="row">
-        <div class="col-md-12">
-            @if (Session::has('response'))
+@extends('layouts.app')
+
+@section('content')
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <book-index :books="{{$books}}"></book-index>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endsection
+            {{-- @if (Session::has('response'))
                 <div class="row justify-content-center">
                     <div class="col-md-6">
                         <div class="alert alert-success text-center">
@@ -190,9 +199,9 @@
             $('#showBook').on('hidden.bs.modal', function() {
                 $('#img-element').remove();
             });
-        </script>
+        </script> --}}
 
 
-
-
-</x-app-layout>
+    {{-- </div>
+    </div>
+</x-app-layout> --}}

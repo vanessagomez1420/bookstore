@@ -11,14 +11,10 @@ class Book extends Model
 
     protected $fillable = [
         'title',
-        'isbn',
         'pages',
-        'format',
-        'synopsis',
         'language',
         'publication_date',
         'price',
-        'publisher_id',
         'image',
     ];
 

@@ -23,28 +23,35 @@ class PublisherController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $title = 'Nuevo';
-        return view('publisher.new_edit', compact('title'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param publisherRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
+
     public function store(PublisherRequest $request)
     {
-        // creamos objeto con las informacion que llega en request
-        $publisher = new Publisher($request->all());
-        // Usamos el metodo sve para almacenar el objeto en la base de datos
-        $publisher->save();
-        // retornamos al index de editoriales con el mensaje de exito
-        return redirect(route('publisher.index'))->with('response', 'Editorial creada corecrtamente!');
+        $request->validate([
+            'name'=> 'required|min:1',
+            'address'=> 'required|min:1',
+            'city'=> 'required|min:1',
+            'site'=> 'required|min:1',
+        ]);
+        // $publisher = new Publisher($request->validated());
+        // $publisher->save();
+
+        $vane = Publisher::create([
+            'name'=> $request->name,
+            'address'=> $request->address,
+            'city'=> $request->city,
+            'site'=> $request->site,
+        ]);
+
+
+        return response()->json([
+            'saved'=> true,
+            'message' => 'Editorial creado con exito',
+            'publisher' => $vane
+        ]);
     }
 
     /**
@@ -85,9 +92,12 @@ class PublisherController extends Controller
             $request = $request->all();
             $request['image'] = $image_name;
         }
-
-        $publisher->update($request->all());
-        return redirect(route('publisher.index'))->with('response', 'Editorial actualizada correctamente!');
+        $publisher->update($request->validated());
+        return response()->json([
+            'saved'=> true,
+            'message' => 'Editorial actualizado con exito',
+            'author' => $publisher
+        ]);
     }
 
     /**

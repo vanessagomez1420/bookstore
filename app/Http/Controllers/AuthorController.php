@@ -12,7 +12,7 @@ class AuthorController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\view
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -21,21 +21,8 @@ class AuthorController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $title = 'Nuevo';
-        return view('author.new_edit', compact('title'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param AuthorRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(AuthorRequest $request)
     {
@@ -47,7 +34,13 @@ class AuthorController extends Controller
         }
         $author = new Author($request->validated());
         $author->save();
-        return redirect()->route('author.index')->with('response', 'Autor creado con exito');
+    
+
+        return response()->json([
+            'saved'=> true,
+            'message' => 'Autor creado con exito',
+            'author' => $author
+        ]);
     }
 
     /**
@@ -88,9 +81,14 @@ class AuthorController extends Controller
             $request = $request->all();
             $request['image'] = $image_name;
         }
-        $author->update($request->all());
-        return redirect(route('author.index'))->with('respose', 'Autor actualizado con exito');
+        $author->update($request->validated());
+        return response()->json([
+            'saved'=> true,
+            'message' => 'Autor actualizado con exito',
+            'author' => $author
+        ]);
     }
+    
 
     /**
      * Remove the specified resource from storage.

@@ -1,46 +1,68 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<html lang="es">
+    <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{'title'}}</title>
-    <link rel="stylesheet" href="{{mix('css/app.css')}}">
+    <link rel="stylesheet" href={{mix('/css/app.css') }}>
+    <link rel="stylesheet" href={{ asset('assets\css/nav.css') }}>
+    <title>Navbar</title>
 </head>
 
 <body>
-<div id="app">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{{ url('/') }}">Libreria</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('author.index') }}">Autores</a>
+  <nav class="nav__container">
+    <div class="nav__content">
+
+        <div class="nav__logo">
+            <img src={{ asset('assets\css/img/libreria.png') }} alt="Logo">
+            <span>Libreria</span>
+        </div>
+
+        <div class="nav__items">
+            <ul class="nav__links">
+
+                @auth
+                    <li class="nav__item">
+                        <a href="{{ route('author.index') }}">Autores</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="{{ route('publisher.index') }}">Editoriales</a>
+                    <li class="nav__item">
+                        <a href="{{ route('genre.index') }}">Generos Lit</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="{{ route('book.index') }}">Libros</a>
+                    </li>
+                        {{-- <li class="nav__item">
+                            <a href="{{ route('login1') }}">Inicio</a></li>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{{ route('register') }}">Registrarse</a></li>
+                        </li> --}}
+
+                @endauth
+
+                <li class="nav_item">
+                    <a href="{{ route('login.host') }}">Inicia Sessión</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('publisher.index') }}">Editoriales</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('genre.index') }}">Generos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('book.index') }}">Libros</a>
-                </li>
+
+                @if (Route::has('register'))
+                    <li class="nav_item">
+                        <a href="{{ route('register') }}">Registrate</a>
+                    </li>
+                @endif
             </ul>
         </div>
-    </nav>
-    <div class="container-fluid mt-3">
-        {{ $slot }}
     </div>
-</div>
+</nav>
+       <div id="app">
+        @yield('content')
+       </div>
+    </div>
 
+    <script src="{{ mix('js/app.js') }}"></script>
 
-<script src="{{ mix('js/app.js') }}"></script>
-@yield('scripts')
 </body>
 
 </html>

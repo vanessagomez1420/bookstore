@@ -5,23 +5,25 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\PublisherController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-Route::get('test', function () {
-    return view('test');
+// Auth::routes();
+
+Route::get('/', function () {
+    return view('index');
 });
 Route::get( '/', function () {
     return view('welcome');
 });
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/login', [App\Http\Controllers\LoginController::class, 'index'])->name('');
+Route::get('/register', [App\Http\Controllers\RegisterController::class, 'index'])->name('register');
+
 
 Route::get('authors', [AuthorController::class, 'index'])->name('author.index');
 Route::group(['prefix' => 'author'], function () {
@@ -34,11 +36,11 @@ Route::group(['prefix' => 'author'], function () {
 
 Route::get('publishers', [PublisherController::class, 'index'])->name('publisher.index');
 Route::group(['prefix' => 'publisher'], function () {
-    Route::get('new', [PublisherController::class, 'create'])->name('publisher.new');
+    Route::get('new', [PublisherController::class, 'create'])->name('publisher.create');
     Route::post('store', [PublisherController::class, 'store'])->name('publisher.store');
     Route::get('edit/{publisher}', [PublisherController::class, 'edit'])->name('publisher.edit');
     Route::put('update/{publisher}', [PublisherController::class, 'update'])->name('publisher.update');
-    Route::put('delete/{publisher}', [PublisherController::class, 'destroy'])->name('publisher.delete');
+    Route::delete('delete/{publisher}', [PublisherController::class, 'destroy'])->name('publisher.delete');
 });
 
 Route::get('genres', [GenreController::class, 'index'])->name('genre.index');
@@ -58,3 +60,9 @@ Route::group(['prefix' => 'book'], function () {
     Route::put('update/{book}', [BookController::class, 'update'])->name('book.update');
     Route::delete('delete/{book}', [BookController::class, 'destroy'])->name('book.delete');
 });
+
+
+
+
+
+

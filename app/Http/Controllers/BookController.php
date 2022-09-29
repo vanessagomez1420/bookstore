@@ -20,7 +20,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all()->load('authors')->load('genres');
+        $books = Book::all();
         return view('book.index', compact('books'));
     }
 

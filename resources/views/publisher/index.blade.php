@@ -1,8 +1,16 @@
-<x-app-layout>
- <x-slot name="title">publishers</x-slot>
-    <div class="row">
-        <div class="col-md-12">
-            @if (\Session::has('response'))
+ @extends('layouts.app')
+            @section('content')
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <publisher-index :publishers="{{$publishers}}"></publisher-index>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endsection
+            {{-- @if (\Session::has('response'))
                 <div class="row justify-content-center">
                     <div class="col-md-6">
                         <div class="alert alert-success text-center">
@@ -55,8 +63,8 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-        </div>
+                {{-- </div>
+            </div> --}}
+          {{-- </div>
     </div>
-</x-app-layout>
+</x-app-layout> --}}
