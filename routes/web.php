@@ -21,7 +21,7 @@ Route::get( '/', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/login', [App\Http\Controllers\LoginController::class, 'index'])->name('');
+Route::get('/login', [App\Http\Controllers\LoginController::class, 'index'])->name('login');
 Route::get('/register', [App\Http\Controllers\RegisterController::class, 'index'])->name('register');
 
 

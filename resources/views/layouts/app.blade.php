@@ -42,8 +42,8 @@
                         </li> --}}
 
                 @endauth
-
-                <li class="nav_item">
+{{
+                {{-- <li class="nav_item">
                     <a href="{{ route('login.host') }}">Inicia Sessión</a>
                 </li>
 
