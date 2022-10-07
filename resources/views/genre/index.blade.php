@@ -1,4 +1,23 @@
-<x-app-layout>
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <genre-index :genres="{{$genres}}"></genre-index>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+
+
+
+
+
+{{-- <x-app-layout>
  <x-slot name="title">genres</x-slot>
     <div class="row">
         <div class="col-md-12">
@@ -53,4 +72,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-app-layout> --}}

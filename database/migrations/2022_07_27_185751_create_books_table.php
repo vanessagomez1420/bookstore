@@ -16,14 +16,17 @@ return new class extends Migration {
             $table->id();
 
             $table->text('title');
-            $table->string('isbn')->unique();
             $table->integer('pages');
-            $table->text('format');
-            $table->text('synopsis');
             $table->text('language');
             $table->date('publication_date');
             $table->float('price');
             $table->string('image')->nullable();
+
+            $table->unsignedBigInteger('author_id');
+            $table->foreign('author_id')->references('id')->on('authors');
+
+            $table->unsignedBigInteger('genre_id');
+            $table->foreign('genre_id')->references('id')->on('genres');
 
             $table->unsignedBigInteger('publisher_id');
             $table->foreign('publisher_id')->references('id')->on('publishers');

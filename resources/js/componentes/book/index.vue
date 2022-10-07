@@ -1,25 +1,25 @@
 <template>
-    <div class="card">
+    <div>
         <div class="card-header text-center">
             <h3 class="card-title">Libros</h3>
-            <a class="btn btn-success" @click.prevent="createbook">
-                <i data-feather="plus-square"></i>Nuevo autor
+            <a class="btn btn-success" @click.prevent="createBook">
+                <i data-feather="plus-square"></i>Nuevo libro
             </a>
         </div>
-        <div class="card-body">
+        <div>
             <book-tabla  ref="bookTabla" :books="books_news"></book-tabla>
         </div>
     </div>
 </template>
 
 <script>
-    import bookTabla from './tabla'
+    import BookTabla from './tabla'
 
 
     export default {
         props: ['books'],
         components: {
-            bookTabla
+            BookTabla
         },
         data() {
             return {
@@ -27,9 +27,10 @@
             }
         },
         methods: {
-            createbook(){
-              this.$refs.bookTabla.createbook()
+            createBook(){
+              this.$refs.bookTabla.createBook()
             }
+
         }
     }
 </script>

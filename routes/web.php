@@ -1,28 +1,41 @@
 <?php
 
-use App\Http\Controllers\AuthorController;
-use App\Http\Controllers\BookController;
-use App\Http\Controllers\GenreController;
-use App\Http\Controllers\PublisherController;
-use Illuminate\Support\Facades\Route;
-use Spatie\Permission\Models\Role;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CardsController;
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\carritoController;
+use App\Http\Controllers\PublisherController;
+use App\Http\Controllers\welcomeController;
 
- Auth::routes();
-
-Route::get('/', function () {
-    return view('index');
-});
-Route::get( '/', function () {
-    return view('welcome');
-});
+ //Auth::routes();
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get( '/',[welcomeController::class,'cardWelcome'])->name('welcome');
 
-Route::get('/login', [App\Http\Controllers\LoginController::class, 'index'])->name('login');
-Route::get('/register', [App\Http\Controllers\RegisterController::class, 'index'])->name('register');
+//permisos
+Route::resource('users', UserController::class)->names('users');
+
+//carrito
+Route::get('/carrito', [carritoController::class, 'carrito'])->name('carrito');
+Route::post('/carrito/añadircarrito', [carritoController::class, 'añadircarrito'])->name('añadir.carrito');
+
+
+//index
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'showCard'])->name('home');
+
+Route::get('/view/login', [App\Http\Controllers\Auth\LoginController::class, 'index'])->name('login.view');
+Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
+Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+Route::get('/view/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register.view');
+Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
+
+
 
 
 Route::get('authors', [AuthorController::class, 'index'])->name('author.index');
@@ -45,7 +58,7 @@ Route::group(['prefix' => 'publisher'], function () {
 
 Route::get('genres', [GenreController::class, 'index'])->name('genre.index');
 Route::group(['prefix' => 'genre'], function () {
-    Route::get('new', [GenreController::class, 'create'])->name('genre.new');
+    Route::get('new', [GenreController::class, 'create'])->name('genre.create');
     Route::post('store', [GenreController::class, 'store'])->name('genre.store');
     Route::get('edit/{genre}', [GenreController::class, 'edit'])->name('genre.edit');
     Route::put('update/{genre}', [GenreController::class, 'update'])->name('genre.update');
@@ -54,11 +67,11 @@ Route::group(['prefix' => 'genre'], function () {
 
 Route::get('books', [BookController::class, 'index'])->name('book.index');
 Route::group(['prefix' => 'book'], function () {
-    Route::get('new', [BookController::class, 'create'])->name('book.new');
+    Route::get('new', [BookController::class, 'create'])->name('book.create');
     Route::post('store', [BookController::class, 'store'])->name('book.store');
     Route::get('edit/{book}', [BookController::class, 'edit'])->name('book.edit');
     Route::put('update/{book}', [BookController::class, 'update'])->name('book.update');
-    Route::delete('delete/{book}', [BookController::class, 'destroy'])->name('book.delete');
+    Route::delete('delete/{book}', [BookController::class, 'destroy'])->name('borrarBook');
 });
 
 

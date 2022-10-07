@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Author;
-use App\Models\AuthorHasBook;
 use App\Models\Book;
-use App\Models\BookHasGenre;
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use App\Http\Requests\BookRequest;
+use App\Models\Author;
 use App\Models\Publisher;
 use Illuminate\Support\Facades\DB;
+
 
 class BookController extends Controller
 {
@@ -20,62 +20,53 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
+        $books = Book::with('author','publisher', 'genre')->get();
         return view('book.index', compact('books'));
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $title = 'Nuevo';
+     public function getData(){
+        $genres = Genre::all();
         $publishers = Publisher::all();
         $authors = Author::all();
-        $genres = Genre::all();
-        return view('book.new_edit', compact('title', 'publishers', 'authors', 'genres'));
+
+        return response()->json([
+            'genres'=>$genres,
+            'publishers'=>$publishers,
+            'authors'=>$authors,
+        ]);
     }
 
+
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param BookRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title'=> 'required|min:1',
+            'pages'=> 'required|min:1',
+            'language'=> 'required|min:1',
+            'publication_date'=> 'required|min:1',
+            'price'=> 'required|min:1',
+        ]);
 
         if ($request->hasFile('image')) {
-            $image_name = uniqid() . '_' . $request->file('image')->getClientOriginalName();
-            $path = $request->file('image')->storeAs('public/images/books', $image_name);
-            $requestArray = $request->all();
-            $requestArray['image'] = $image_name;
+            $imageName = \Str::random(5). '.' . $request->image->getClientOriginalExtension();
+            request()->image->move(public_path('/images/books'), $imageName);
 
         }
 
-
-        $book = new Book($requestArray);
+        $book = new Book($request->all());
+        $book->image = '/images/books/'.$imageName;
         $book->save();
-        if ($request->authors) {
-            foreach ($request->authors as $author) {
-                $bookAuthor = new AuthorHasBook();
-                $bookAuthor->author_id = $author;
-                $bookAuthor->book_id = $book->id;
-                $bookAuthor->save();
-            }
-        }
-        if ($request->genres) {
-            foreach ($request->genres as $genre) {
-                $bookGenre = new BookHasGenre();
-                $bookGenre->genre_id = $genre;
-                $bookGenre->book_id = $book->id;
-                $bookGenre->save();
-            }
-        }
 
-        return redirect()->route('book.index')->with('response', 'libro creado con exito');
+        return response()->json([
+            'saved'=> true,
+            'message' => 'Libro creado con exito',
+            'book' => $book->load('genre', 'author','publisher')
+        ]);
     }
 
     /**
@@ -98,10 +89,7 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         $title = 'Editar';
-        $publishers = Publisher::all();
-        $authors = Author::all();
-        $genres = Genre::all();
-        return view('book.new_edit', compact('title', 'book', 'publishers', 'authors', 'genres'));
+        return view('book.new_edit', compact('book', 'title'));
     }
 
     /**
@@ -113,36 +101,19 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
+        dd($request);
         if ($request->hasFile('image')) {
-            $image_name = uniqid() . '_' . $request->file('image')->getClientOriginalName();
-            $path = $request->file('image')->storeAs('public/images/books', $image_name);
-            $requestArray = $request->all();
-            $requestArray['image'] = $image_name;
+            $imageName = \Str::random(5). '.' . $request->image->getClientOriginalExtension();
+            request()->image->move(public_path('/images/books'), $imageName);
         }
+        $request->image='/images/books'.$imageName;
+        $book->update($request->all());
 
-
-
-        $book->update($requestArray);
-        AuthorHasBook::where('book_id', $book->id)->delete();
-        if ($request->authors) {
-            foreach ($request->authors as $author) {
-                $bookAuthor = new AuthorHasBook();
-                $bookAuthor->author_id = $author;
-                $bookAuthor->book_id = $book->id;
-                $bookAuthor->save();
-            }
-        }
-        BookHasGenre::where('book_id', $book->id)->delete();
-        if ($request->genres) {
-            foreach ($request->genres as $genre) {
-                $bookGenre = new BookHasGenre();
-                $bookGenre->genre_id = $genre;
-                $bookGenre->book_id = $book->id;
-                $bookGenre->save();
-            }
-        }
-
-        return redirect()->route('book.index')->with('response', 'libro actualizado con exito');
+        return response()->json([
+            'saved'=> true,
+            'message' => 'libro actualizado con exito',
+            'book' => $book->load('genre', 'author','publisher')
+        ]);
     }
 
     /**

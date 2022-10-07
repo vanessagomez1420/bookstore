@@ -6,6 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <author-index :authors="{{$authors}}"></author-index>
+                
             </div>
         </div>
     </div>

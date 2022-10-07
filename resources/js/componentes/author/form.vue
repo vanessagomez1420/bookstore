@@ -53,12 +53,12 @@
             let res = null
 
             if (!this.author.id){
-                res = await axios.post(url, this.author) 
+                res = await axios.post(url, this.author)
             } else{
                   url = `/author/update/${this.author.id}`
                   res = await axios.put(url, this.author)
             }
-            
+
 
             if (res.data.saved) {
                         alert(`${res.data.message}`)
@@ -67,7 +67,7 @@
                         }
                     }
                     this.$parent.closeModal()
-            }
+                }
         }
     }
 </script>

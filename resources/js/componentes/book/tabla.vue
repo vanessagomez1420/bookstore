@@ -1,6 +1,6 @@
 <template >
-<div class="table-responsive-md">
-                        <table class="table table-hover text-center">
+<div class="table-responsive">
+                        <table class="table table-hover text-center" id="bookTabla">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -9,7 +9,12 @@
                                     <th>Idioma</th>
                                     <th>Fecha de publicacion</th>
                                     <th>Precio</th>
+                                    <th>Imagen</th>
+                                    <th>Editorial</th>
+                                    <th>Genero</th>
+                                    <th>Author</th>
                                     <th>Acciones</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -18,14 +23,18 @@
                                     <td>{{book.title}}</td>
                                     <td>{{book.pages}}</td>
                                     <td>{{book.language}}</td>
-                                    <td>{{book.date_of_birth}}</td>
+                                    <td>{{book.publication_date}}</td>
                                     <td>{{book.price}}</td>
-                                    <!-- <td>
-                                        <img :src="'/storage/images/authors${author.image}'" alt="" class="img-fluid w-25">
-                                    </td> -->
                                     <td>
-                                      <a class="btn btn-warning" href="#" @click.prevent="editbook(book)">Editar</a>
-                                      <a class="btn btn-danger" href="#" @click.prevent="borrarbook(id)">Borrar</a>
+                                        <img :src="book.image" alt="image" class="img-fluid">
+                                    </td>
+                                    <td>{{book.publisher.name}}</td>
+                                    <td>{{book.genre.name}}</td>
+                                    <td>{{book.author.sur_name}} {{book.author.last_name}}</td>
+
+                                    <td>
+                                      <a class="btn btn-warning" href="#" @click.prevent="editBook(book)">Editar</a>
+                                      <a class="btn btn-danger" href="#" @click.prevent="borrarBook(index)">Borrar</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -33,33 +42,41 @@
                         <div v-if="load_modal">
                         <book-form :book="book"></book-form>
                     </div>
-                    </div>
+                </div>
 </template>
 
 <script>
 
-
-import bookForm from './form'
+import BookForm from './form'
 export default {
     props:['books'],
     components:{
-        bookForm
+        BookForm
     },
     data(){
         return{
             book: {},
+            genres: [],
+            publishers: [],
+            authors: [],
+            image: '',
             load_modal: false
         }
     },
+    mounted(){
+        this.getData()
+        this.tabla()
+
+    },
     methods:{
-        editbook(book){
+        editBook(book){
             this.load_modal = true
             this.book = book
             setTimeout(() =>
                     $('#modalBook').modal('show')
                 , 200);
         },
-        createbook() {
+        createBook() {
                 this.load_modal = true
                 this.book = {}
                 setTimeout(() =>
@@ -75,9 +92,28 @@ export default {
                 , 200);
             },
 
-            borrarbook: function (id) {
-              this.load_modal(id, 1)
-            }
+            getData(){
+               axios.get('/api/getData').then(res=>{
+                this.genres=res.data.genres
+                this.publishers=res.data.publishers
+                this.authors=res.data.authors
+               });
+            },
+
+            borrarBook(index)
+            {
+               if (!confirm('¿desea eliminar el registro')) return;
+               this.books.splice(index, 1);
+            },
+            tabla(){
+                setTimeout(() => {
+            $('#bookTabla').DataTable({
+                dom: 'Bfrtip',
+                buttons: ['copy', 'excel'],
+                processing: true
+            })
+              }, 1000)
+            },
     }
 }
 </script>

@@ -3,11 +3,8 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-              <h1>Bienvenidos</h1>
-            </div>
-        </div>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <card-book-index :books="{{$books_news}}"></card-book-index>
     </div>
 </div>
 @endsection

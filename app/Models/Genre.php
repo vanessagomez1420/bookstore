@@ -16,6 +16,6 @@ class Genre extends Model
 
     public function books()
     {
-        return $this->belongsToMany(Book::class, 'book_has_genres');
-    }
+        return $this->belongsTo(Book::class);
+     }
 }

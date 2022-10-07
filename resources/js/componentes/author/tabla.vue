@@ -1,6 +1,6 @@
 <template>
     <div class="table-responsive">
-                        <table class="table table-hover text-center">
+                        <table class="table table-hover text-center" id="authorTabla">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -26,7 +26,7 @@
                                     </td>
                                     <td>
                                       <a class="btn btn-warning" href="#" @click.prevent="editAuthor(author)">Editar</a>
-                                      <a class="btn btn-danger" href="#" @click.prevent="borrarAuthor(id)">Borrar</a>
+                                      <a class="btn btn-danger" href="#" @click.prevent="borrarAuthor(index)">Borrar</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -38,46 +38,65 @@
 </template>
 <script>
 
+
 import AuthorForm from './form'
 export default {
-    props:['authors'],
+    props:['authors',],
     components:{
-        AuthorForm
+        AuthorForm,
     },
+
     data(){
         return{
             author: {},
             load_modal: false
         }
     },
+    mounted(){
+        this.tabla()
+
+    },
     methods:{
         editAuthor(author){
             this.load_modal = true
             this.author = author
             setTimeout(() =>
-                    $('#modalAuthor').modal('show')
-                , 200);
+                $('#modalAuthor').modal('show')
+            , 200);
         },
         createAuthor() {
-                this.load_modal = true
-                this.author = {}
-                setTimeout(() =>
-                    $('#modalAuthor').modal('show')
-                , 200);
+            this.load_modal = true
+            this.author = {}
+            setTimeout(() =>
+                $('#modalAuthor').modal('show')
+            , 200);
+        },
+        closeModal() {
+            $('#modalAuthor').modal('hide')
+            setTimeout(() =>
+            this.load_modal = false
+            , 200);
+        },
 
+        borrarAuthor(index)
+        {
+            if (!confirm('¿desea eliminar el registro')) return;
+            this.authors.splice(index, 1);
+        },
 
-            },
-            closeModal() {
-                $('#modalAuthor').modal('hide')
-                setTimeout(() =>
-                this.load_modal = false
-                , 200);
-            },
-
-            borrarAuthor: function (id) {
-              this.load_modal(id, 1)
-            }
+        tabla(){
+            setTimeout(() => {
+                $('#authorTabla').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: ['copy', 'excel'],
+                    processing: true
+                })
+            }, 1000)
+        },
     }
 }
+
+
+
 
 </script>

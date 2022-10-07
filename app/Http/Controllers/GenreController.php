@@ -34,14 +34,20 @@ class GenreController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     *@param GenreRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(GenreRequest $request)
     {
-        $genre = new Genre($request->all());
+        $genre = new Genre($request->validated());
         $genre->save();
-        return redirect()->route('genre.index')->with('response', 'el genero a sido creado con exito');
+
+
+        return response()->json([
+            'saved'=> true,
+            'message' => 'Genero creado con exito',
+            'genre' => $genre
+        ]);
     }
 
     /**
@@ -74,10 +80,14 @@ class GenreController extends Controller
      * @param  \App\Models\Genre  $genre
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Genre $genre)
+    public function update(GenreRequest $request, Genre $genre)
     {
-        $genre->update($request->all());
-        return redirect()->route('genre.index')->with('respose', 'genero actualizado con exito');
+        $genre->update($request->validated());
+        return response()->json([
+            'saved'=> true,
+            'message' => 'Genero actualizado con exito',
+            'genre' => $genre
+        ]);
     }
 
     /**

@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
             <div class="container">
                 <div class="row justify-content-center">
@@ -11,6 +10,7 @@
                 </div>
             </div>
         @endsection
+
             {{-- @if (Session::has('response'))
                 <div class="row justify-content-center">
                     <div class="col-md-6">
@@ -199,7 +199,7 @@
             $('#showBook').on('hidden.bs.modal', function() {
                 $('#img-element').remove();
             });
-        </script> --}}
+        </> --}}
 
 
     {{-- </div>

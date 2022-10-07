@@ -1,6 +1,6 @@
 <template>
     <div class="table-responsive">
-                        <table class="table table-hover text-center">
+                        <table class="table table-hover text-center" id="publisherTabla">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -21,7 +21,7 @@
                                     <td>{{publisher.site }}</td>
                                     <td>
                                       <a class="btn btn-warning" href="#" @click.prevent="editPublisher(publisher)">Editar</a>
-                                      <a class="btn btn-danger" href="#" @click.prevent="borrarpublisher(id)">Borrar</a>
+                                      <a class="btn btn-danger" href="#" @click.prevent="borrarpublisher(index)">Borrar</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -44,6 +44,9 @@ export default {
             publisher: {},
             load_modal: false
         }
+    },
+    mounted(){
+        this.tabla()
     },
     methods:{
         editPublisher(publisher){
@@ -69,9 +72,20 @@ export default {
                 , 200);
             },
 
-            borrarpublisher: function (id) {
-              this.load_modal(id, 1)
-            }
+            borrarpublisher(index)
+            {
+               if (!confirm('¿desea eliminar el registro')) return;
+               this.publishers.splice(index, 1);
+            },
+            tabla(){
+                setTimeout(() => {
+            $('#publisherTabla').DataTable({
+                dom: 'Bfrtip',
+                buttons: ['copy', 'excel'],
+                processing: true
+            })
+              }, 1000)
+            },
     }
 }
 
